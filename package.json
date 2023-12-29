@@ -1,8 +1,8 @@
 {
-  "name": "jkt48sr-discord-notif",
+  "name": "fph-dcbot",
   "version": "0.0.3",
   "description": "Discord notification for JKT48 Showroom Lives",
-  "author": "crstlnz",
+  "author": "crstlnz, fph",
   "license": "ISC",
   "keywords": [
     "JKT48 Showroom",
