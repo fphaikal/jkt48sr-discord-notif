@@ -16,7 +16,8 @@ const config: ShowroomWatcherOptions = {
     no_activity_refresh: 60000,
   },
   discord: {
-    channel_name: '🎥・jkt48yt-update', // if NODE_ENV=development channel name will be suffixed with "-dev"
+    channel: '🎥・jkt48yt-update',
+    dev_channel: '🎥・jkt48yt-update-dev', // if empty channel_name will be used
     specific_guilds: [],
   },
   message: {

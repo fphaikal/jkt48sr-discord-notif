@@ -6,7 +6,8 @@ import type WatcherData from './core'
 import config from '@/config'
 
 const devGuilds = config.discord.specific_guilds || []
-const channelName = config.discord.channel_name.toLowerCase()
+const channelName = config.discord.channel.toLowerCase()
+const devChannelName = config.discord.dev_channel?.toLowerCase() || channelName
 class WatcherMessageManager {
   messages: SRMessage[]
   temp?: Watcher.Message[]
@@ -61,6 +62,7 @@ class WatcherMessageManager {
     if (!this.messages?.length) {
       return []
     }
+
     const result: SRMessage[] = []
     for (const msg of this.messages) {
       const message = await msg.update(options)
@@ -85,12 +87,14 @@ class WatcherMessageManager {
 
   getChannels(): TextChannel[] {
     if (!client.isReady) return []
-    const cNames = process.env.NODE_ENV === 'development' ? `${channelName}-dev` : channelName
+    const cNames = process.env.NODE_ENV === 'development' ? devChannelName : channelName
     const channels: TextChannel[] = []
     const guilds = client.guilds.cache
 
     for (const guild of guilds.values()) {
+      console.log('Guild Name', guild.name)
       if (devGuilds.length > 0 && !devGuilds.includes(guild.id)) continue
+      console.log('Guild', guild.name, 'pass')
       const channel = guild.channels.cache.find(
         c =>
           c.name.toLowerCase() === cNames
@@ -98,6 +102,13 @@ class WatcherMessageManager {
           && c instanceof TextChannel
           && (guild.members.me ? c.permissionsFor(guild.members.me).has(PermissionFlagsBits.SendMessages) : false),
       )
+
+      if (channel) {
+        console.log('Channel found :', channel.name)
+      }
+      else {
+        console.log('Channel not found')
+      }
 
       if (channel) channels.push(channel as TextChannel)
     }
