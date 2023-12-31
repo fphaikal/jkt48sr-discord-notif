@@ -28,6 +28,10 @@ const config: ShowroomWatcherOptions = {
         .setDescription(`Total Gift : \`${giftData?.total ?? 0}\`\n\`\`\`${giftData?.users || 'No gift right now'}\`\`\``)
         .setImage(watcher.image)
         .setColor(liveColor)
+        .addFields({
+          name: 'Watch On Showroom',
+          value: `[Watch Now](https://www.showroom-live.com/${watcher.roomKey})`,
+        })
         .setFooter({ text: 'Showroom Gift Counter', iconURL: 'https://play-lh.googleusercontent.com/AKKnVMfKzyuPK2QLY3WDhhfBKyhW8nq5KjYARLcDgcub4ue5B9RSBzjv4-nU5EA1debu' })
         .setURL(`https://www.showroom-live.com/${watcher.roomKey}`)
     },
